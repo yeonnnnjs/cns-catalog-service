@@ -1,4 +1,4 @@
-package com.yeonnnnjs.catalog_service;
+package com.yeonnnnjs.catalogservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
