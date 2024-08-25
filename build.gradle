@@ -13,16 +13,42 @@ java {
 	}
 }
 
+ext {
+	set('springCloudVersion', "2023.0.3")
+}
+
 repositories {
 	mavenCentral()
 }
 
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+bootRun {
+	systemProperty 'spring.profiles.active', 'testdata'
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	implementation 'org.springframework.cloud:spring-cloud-starter-config'
+	implementation 'org.springframework.retry:spring-retry'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
 }
 
 tasks.named('test') {
